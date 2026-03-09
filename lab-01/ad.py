@@ -449,6 +449,117 @@
 # k = 2
 # print(max_subarray_sum(nums, k))
             
+#task 21
+# lmbda = lambda lst: list(
+#     map(str.upper,
+#         filter(lambda w: len(w) > 4 and w.isalpha() and len(set(w)) == len(w), lst)
+#     )
+# )
+# print(lmbda(["Hello", "world","apple", "train", "abcde"]))
 
+#task 22
+# def group_by_parity_and_sort(nums):
+#     even = []
+#     odd = []
 
+#     for n in nums:
+#         if n % 2 == 0:
+#             even += [n]
+#         else:
+#             odd += [n]
+
+#     for i in range(len(even)):
+#         for j in range(i + 1,len(even)):
+#             if even[i] > even[j]:
+#                 even[i], even[j] = even[j], even[i]
+
+#     for i in range(len(odd)):
+#         for j in range( i + 1, len(odd)):
+#             if odd[i] > odd[j]:
+#                 odd[i], odd[j] = odd[j], odd[i]
+
+#     result = even + odd
+
+#     return result
+
+# print(group_by_parity_and_sort([1,2,3,4,5,6]))
+
+#task 23
+# is_prime = lambda n: n > 1 and all(n % i != 0 for i in range(2, n))
+
+# f = lambda nums:[
+#     nums[i]
+#     for i in range(len(nums))
+#     if is_prime(i) and nums[i] % 2 != 0 and nums[i] > sum(nums)/len(nums)
+# ]
     
+# nums = [10, 7, 3, 12, 9, 5, 8, 11]
+
+# print(f(nums))
+
+#task 24
+# def longest_increasing_sublist(nums):
+
+#     longest = [nums[0]]
+#     current = [nums[0]]
+
+#     for i in range(1, len(nums)):
+
+#         if nums[i] > nums[i-1]:
+#             current += [nums[i]]
+
+#         else:
+#             if len(current) > len(longest):
+#                 longest = current
+
+#             current = [nums[i]]
+
+#     if len(current) > len(longest):
+#         longest = current
+
+#     return longest
+
+# print(longest_increasing_sublist([1,2,3,2,4,5,6,1]))
+
+#task 25
+
+# def my_sum(lst):
+#     s = 0
+#     for n in lst:
+#         s += n
+#     return s
+
+# f = lambda nums: [
+#     my_sum(sub)/len(sub)
+#     for sub in nums
+#     if len(sub) >= 3 and my_sum(sub) % 2 == 0
+# ]
+
+# nums = [
+#     [1,2,3],
+#     [4,5],
+#     [6,7,8],
+#     [1,1,1,1]
+# ]
+# print(f(nums))
+
+#task 26
+# def remove_duplicates_keep_last(nums):
+    
+#     result = []
+
+#     for i in range(len(nums)):
+
+#         duplicate = False
+
+#         for j in range(i + 1, len(nums)):
+#             if nums[i] == nums[j]:
+#                 duplicate = True
+#                 break
+
+#         if not duplicate:
+#             result += [nums[i]]
+
+#     return result
+
+# print(remove_duplicates_keep_last([1,2,3,2,4,1]))

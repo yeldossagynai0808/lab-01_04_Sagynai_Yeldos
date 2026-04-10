@@ -1,0 +1,42 @@
+=== LOGS ===
+
+--- Events for Arman ---
+Arman | LOOT | {'item': 'Sword', 'power': 50} | HP: 100 -> 100 | Items: 0 -> 1
+Arman | ATTACK | {'damage': 27} | HP: 100 -> 75.7 | Items: 1 -> 1
+Arman | ATTACK | {'damage': 24} | HP: 75.7 -> 54.1 | Items: 1 -> 1
+Arman | ATTACK | {'damage': 16} | HP: 54.1 -> 39.7 | Items: 1 -> 1
+Arman | LOOT | {'item': 'Staff', 'power': 60} | HP: 39.7 -> 39.7 | Items: 1 -> 2
+Arman | ATTACK | {'damage': 47} | HP: 39.7 -> 0 | Items: 2 -> 2
+Arman | HEAL | {'heal': 6} | HP: 0 -> 6 | Items: 2 -> 2
+Arman | ATTACK | {'damage': 15} | HP: 6 -> 0 | Items: 2 -> 2
+Arman | ATTACK | {'damage': 24} | HP: 0 -> 0 | Items: 2 -> 2
+Arman | LOOT | {'item': 'Staff', 'power': 60} | HP: 0 -> 0 | Items: 2 -> 3
+
+--- Events for Aruzhan ---
+Aruzhan | LOOT | {'item': 'Sword', 'power': 50} | HP: 100 -> 100 | Items: 0 -> 1
+Aruzhan | ATTACK | {'damage': 27} | HP: 100 -> 73 | Items: 1 -> 1
+Aruzhan | ATTACK | {'damage': 24} | HP: 73 -> 49 | Items: 1 -> 1
+Aruzhan | ATTACK | {'damage': 16} | HP: 49 -> 33 | Items: 1 -> 1
+Aruzhan | LOOT | {'item': 'Staff', 'power': 60} | HP: 33 -> 33 | Items: 1 -> 2
+Aruzhan | ATTACK | {'damage': 47} | HP: 33 -> 0 | Items: 2 -> 2
+Aruzhan | HEAL | {'heal': 6} | HP: 0 -> 6 | Items: 2 -> 2
+Aruzhan | ATTACK | {'damage': 15} | HP: 6 -> 0 | Items: 2 -> 2
+Aruzhan | ATTACK | {'damage': 24} | HP: 0 -> 0 | Items: 2 -> 2
+Aruzhan | LOOT | {'item': 'Staff', 'power': 60} | HP: 0 -> 0 | Items: 2 -> 3
+
+--- Events for Eldos ---
+Eldos | LOOT | {'item': 'Sword', 'power': 50} | HP: 100 -> 100 | Items: 0 -> 1
+Eldos | ATTACK | {'damage': 27} | HP: 100 -> 73 | Items: 1 -> 1
+Eldos | ATTACK | {'damage': 24} | HP: 73 -> 49 | Items: 1 -> 1
+Eldos | ATTACK | {'damage': 16} | HP: 49 -> 33 | Items: 1 -> 1
+Eldos | LOOT | {'item': 'Staff', 'power': 60} | HP: 33 -> 33 | Items: 1 -> 2
+Eldos | ATTACK | {'damage': 47} | HP: 33 -> 0 | Items: 2 -> 2
+Eldos | HEAL | {'heal': 6} | HP: 0 -> 6 | Items: 2 -> 2
+Eldos | ATTACK | {'damage': 15} | HP: 6 -> 0 | Items: 2 -> 2
+Eldos | ATTACK | {'damage': 24} | HP: 0 -> 0 | Items: 2 -> 2
+Eldos | LOOT | {'item': 'Staff', 'power': 60} | HP: 0 -> 0 | Items: 2 -> 3
+
+=== PLAYERS ===
+Arman;HP=0;Items=3
+Aruzhan;HP=0;Items=3
+Eldos;HP=0;Items=3

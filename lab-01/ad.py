@@ -563,3 +563,302 @@
 #     return result
 
 # print(remove_duplicates_keep_last([1,2,3,2,4,1]))
+
+
+# TASK 27
+# f = lambda w: sorted(w, key=lambda x: (-len(x), x))[:5]
+
+# w = ["apple", "banana", "kiwi", "cherry", "date", "grape", "pear"]
+
+# print(f(w))
+
+
+# TASK 28
+# def moving_average(nums, k):
+#     result = []
+
+#     for i in range(len(nums) - k + 1):
+#         window = [i, i + k]
+
+#         if any(n < 0 for n in window):
+#             continue
+
+#         avg = sum(window) / k
+#         result.append(avg)
+        
+#     return result
+
+# print(moving_average([1,2,3,-1,-2,3], 2))
+
+# TASK 29
+# func = lambda a, b: list(
+#     filter(
+#         lambda x: x not in b and x > sum(a) / len(a),
+#         a
+#     )
+# )
+
+# print(func([1,5,7,10], [5,3]))
+
+# TASK 30
+# def analyze_string_list(words):
+#     result = []
+
+#     for word in words:
+
+#         has_digit = False
+#         for ch in word:
+#             if ch.isdigit():
+#                 has_digit = True
+#                 break
+
+#         if has_digit:
+#             continue
+
+#         if word in result:
+#             continue
+
+#         if len(word) % 2 == 0:
+#             result.append(word[::-1])
+#         else:
+#             result.append(word.upper())
+
+#     return result
+
+# words = ["hello", "cat", "dog2", "cat", "hi"]
+
+# print(analyze_string_list(words))
+
+###  DICT AND SET
+# TASK 1
+# def invert_unique(d):
+#     result = {}
+
+#     for key in d:
+#         value = d[key]
+
+#         if value not in result:
+#             result[value] = [key]
+#         else:
+#             if key not in result[value]:
+#                 result[value].append(key)
+
+#     return result
+
+# d = {
+#     "a": 1,
+#     "b": 2,
+#     "c": 1,
+#     "d": 3,
+#     "e": 2
+# }
+# print(invert_unique(d))
+
+# TASK 2
+# func = lambda s: set(
+#     filter(
+#         lambda x: x > sum(s)/len(s) and x % 2 != 0 and x % 5 != 0,
+#         s
+#     )
+# )
+
+# print(func({1,3,5,7,9,11}))
+
+# TASK 3
+# def merge_dicts_sum(d1, d2):
+#     result = {}
+
+#     for key in d1:
+#         result[key] = d1[key]
+
+#     for key in d2:
+#         if key in result:
+#             result[key] += d2[key]
+#         else:
+#             result[key] = d2[key]
+
+#     return result
+
+# d1 = {"a": 5, "b": 3, "c": 7}
+# d2 = {"b": 4, "c": 2, "d" : 10}
+# print(merge_dicts_sum(d1, d2))
+
+# TASK 4
+# def filter_sets(sets_list):
+#     result = []
+
+#     for s in sets_list:
+
+#         if len(s) <= 3:
+#             continue
+
+#         has_negative = False
+#         has_even = False
+
+#         for n in s:
+#             if n < 0:
+#                 has_negative = True
+#             if n % 2 == 0:
+#                 has_even = True
+
+#         if not has_negative and has_even:
+#             result.append(s)
+
+#     return result
+
+# sets_list = [
+#     {1, 2, 3, 4},
+#     {1, 3, 5},
+#     {2, 4, 6, 8},
+#     {1, -2, 3, 4},
+#     {7, 9, 11, 13}
+# ]
+
+# print(filter_sets(sets_list))
+
+# TASK 5
+# func = lambda d: [
+#     k for k, v in sorted(d.items(), key=lambda x: (-x[1], x[0]))
+# ][:5]
+
+# d = {
+#     "apple": 5,
+#     "banana": 3,
+#     "orange": 5,
+#     "grape": 2,
+#     "melon": 5,
+#     "pear": 3
+# }
+
+# print(func(d))
+
+# TASK 6
+# def deep_sum(d):
+#     total = 0
+
+#     for value in d.values():
+
+#         if type(value) == int or type(value) == float:
+#             total += value
+
+#         elif type(value) == list:
+#             for num in value:
+#                 total += num
+        
+#         elif type(value) == dict:
+#             total += deep_sum(value)
+
+#     return total
+
+# data = {
+#     "a": 5,
+#     "b": [1,2,3],
+#     "c": {"d": 4}
+# }
+# print(deep_sum(data))
+
+# TASK 7
+# def set_dw(A, B):
+#     result = set()
+
+
+#     for ch in A:
+#         if ch not in B:
+#             if ch % 2 == 0:
+#                 result.add(ch)
+
+#     for item in B:
+#         if item not in A:
+#             if item % 2 == 0:
+#                 result.add(item)
+
+
+
+#     return result
+
+
+# print(set_dw({1, 2, 3, 4}, {4, 5, 6, 3}))
+
+# TASK 7
+# func = lambda A, B: {x for x in (A ^ B) if x % 2 == 0}
+
+# print(func({1, 2, 3, 4}, {4, 5, 6, 3}))
+
+# TASK 8 
+# def sort_dict_by_value_length(d):
+#     items = []
+
+#     for key in d:
+#         items.append((key, d[key]))
+
+#     items.sort(key=lambda x: (len(x[1]), x[0]))
+
+#     return items
+
+# d = {
+#     "apple": "red",
+#     "banana": "yellow",
+#     "kiwi": "green"
+# }
+
+# print(sort_dict_by_value_length(d))
+
+# TASK 9
+# def common_elements_all(sets_list):
+
+#     if not sets_list:
+#         return set()
+
+#     result = set()
+
+#     first_set = sets_list[0]
+
+#     for element in first_set:
+#         common = True
+
+#         for s in sets_list:
+#             if element not in s:
+#                 common = False
+#                 break
+
+#         if common:
+#             result.add(element)
+
+#     return result
+
+
+# sets_list = [
+#     {1,2,3},
+#     {2,3,4},
+#     {0,2,3}
+# ]
+# print(common_elements_all(sets_list))
+
+# TASK 10
+# def filter_sort_dict(d):
+#     result = {}
+
+#     for key in d:
+#         char = []
+
+#         for num in d[key]:
+#             if num % 2 != 0:
+#                 char.append(num)
+
+#         char.sort()
+
+#         if len(char) > 0:
+#             result[key] = char
+
+#     return result
+
+# data = {
+#     "a": [1, 2, 3, 4],
+#     "b": [2, 4, 6],
+#     "c": [5, 3, 1],
+#     "d": []
+# }
+
+# print(filter_sort_dict(data))
+
+    

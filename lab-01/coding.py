@@ -1,30 +1,30 @@
-import turtle
+# import turtle
 
-turtle.title("rainbow!")
-turtle.speed(15)
-turtle.bgcolor("black")
-r,g,b=(255,0,0)
+# turtle.title("rainbow!")
+# turtle.speed(15)
+# turtle.bgcolor("black")
+# r,g,b=(255,0,0)
 
-for i in range(255*2):
-    turtle.colormode(255)
-    if i < 255//3:
-        g += 3
-    elif i < 255*2//3:
-        r -= 3
-    elif i < 255:
-        b += 3
-    elif i < 255*4//3:
-        g -=3
-    elif i < 255*5//3:
-        r+= 3
-    else:
-        b-=3
+# for i in range(255*2):
+#     turtle.colormode(255)
+#     if i < 255//3:
+#         g += 3
+#     elif i < 255*2//3:
+#         r -= 3
+#     elif i < 255:
+#         b += 3
+#     elif i < 255*4//3:
+#         g -=3
+#     elif i < 255*5//3:
+#         r+= 3
+#     else:
+#         b-=3
 
-        turtle.fd(50+i)
-        turtle.rt(91)
-        turtle.pencolor(r,g,b)
+#         turtle.fd(50+i)
+#         turtle.rt(91)
+#         turtle.pencolor(r,g,b)
 
-turtle.done()
+# turtle.done()
 #split()
 # def my_split(text):
 #     words = []
@@ -54,5 +54,13 @@ turtle.done()
 
 # print(custom_lower("Joelll"))
 
+
+import ast
+s = "{'damage': 50}"
+
+data = ast.literal_eval(s)
+
+print(data)
+print(type(data))
 
             

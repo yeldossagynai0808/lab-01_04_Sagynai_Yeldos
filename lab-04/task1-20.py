@@ -370,7 +370,7 @@ def generate_events(players, items, n):
             elif t == "HEAL":
                 data = {"heal": random.randint(5, 50)}
 
-            else:  # LOOT
+            else:
                 item = random.choice(items)
                 data = {"item": item}
 
@@ -391,19 +391,18 @@ def analyze_logs(events):
     event_count = {}
 
     for event in events:
-        # считаем события
+        
         event_count[event.type] = event_count.get(event.type, 0) + 1
 
-        # считаем урон по игрокам
+    
         if event.type == "ATTACK":
             pid = event.player_id
             damage = event.data["damage"]
             damage_by_player[pid] = damage_by_player.get(pid, 0) + damage
 
-    # топ игрок
     top_player = max(damage_by_player, key=damage_by_player.get) if damage_by_player else None
 
-    # самое частое событие
+
     most_common_event = max(event_count, key=event_count.get)
 
     return {
@@ -435,7 +434,7 @@ class Player:
         self._hp = hp
         self._inventory = []
 
-    # 🔹 доступ к hp
+    
     @property
     def hp(self):
         return self._hp
@@ -447,12 +446,12 @@ class Player:
         else:
             self._hp = value
 
-    # 🔹 доступ к inventory (только чтение)
+    
     @property
     def inventory(self):
         return self._inventory
 
-    # 🔹 методы работы с inventory
+    
     def add_item(self, item):
         self._inventory.append(item)
 
@@ -487,11 +486,11 @@ class Inventory:
     def __iter__(self):
         return iter(self._items)
 
-inv = Inventory()
+# inv = Inventory()
 
-inv.add_item(Item(1, "Sword", 50))
-inv.add_item(Item(2, "Gun", 100))
-inv.add_item(Item(3, "Knife", 20))
+# inv.add_item(Item(1, "Sword", 50))
+# inv.add_item(Item(2, "Gun", 100))
+# inv.add_item(Item(3, "Knife", 20))
 
 for item in inv:
     print(item)
@@ -508,17 +507,17 @@ def analyze_inventory(inventories):
         "unique_items": unique_items,
         "top_power": top_item
     }
-inv1 = Inventory()
-inv1.add_item(Item(1, "Sword", 50))
-inv1.add_item(Item(2, "Gun", 100))
+# inv1 = Inventory()
+# inv1.add_item(Item(1, "Sword", 50))
+# inv1.add_item(Item(2, "Gun", 100))
 
-inv2 = Inventory()
-inv2.add_item(Item(1, "Sword", 50))
-inv2.add_item(Item(3, "Knife", 20))
+# inv2 = Inventory()
+# inv2.add_item(Item(1, "Sword", 50))
+# inv2.add_item(Item(3, "Knife", 20))
 
-result = analyze_inventory([inv1, inv2])
+# result = analyze_inventory([inv1, inv2])
 
-print(result)
+# print(result)
 
 
 

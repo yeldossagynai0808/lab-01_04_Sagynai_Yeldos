@@ -316,12 +316,142 @@ pivot = pd.pivot_table(
 print(pivot)
 
 
-plt.figure()
+# plt.figure()
 
-sns.heatmap(pivot, annot=True)
+# sns.heatmap(pivot, annot=True)
 
-plt.title("Тепловая карта категорий и диапазонов цен")
-plt.xlabel("Диапазон цены")
-plt.ylabel("Категория")
+# plt.title("Тепловая карта категорий и диапазонов цен")
+# plt.xlabel("Диапазон цены")
+# plt.ylabel("Категория")
 
-plt.show()
+# plt.show()
+
+# 37
+grouped = df.groupby('col_2').agg({'col_3':'std'}).reset_index()
+grouped.columns = ['category', 'std_price']
+
+# grouped = grouped.sort_values(by='std_price', ascending = False)
+# plt.figure(figsize=(10,6))
+# sns.barplot(data=grouped, y='category', x='std_price')
+
+# plt.title('Price Variability by Category')
+# plt.xlabel('Standard Deviation of Price')
+# plt.ylabel('Category')
+
+# plt.show()
+
+# print(grouped.head())
+
+#38
+df_zero = df[df['col_3'] == 0]
+
+result = df_zero[['col_1', 'col_7', 'col_2']]
+
+result.columns = ['name', 'category', 'price']
+
+print(result.head(10))
+
+# 39
+grouped = df.groupby('col_7').agg(
+    count=('col_7', 'count')
+).reset_index()
+
+top_5 = grouped.sort_values(by='count', ascending=False).head(5)
+
+print(top_5)
+
+# plt.figure(figsize=(10,6))
+
+# sns.barplot(x='col_7', y='count', data=top_5)
+
+# plt.title('Top 5 Categories')
+# plt.xlabel('Category')
+# plt.ylabel('Count')
+
+# plt.show()
+
+#40
+top10 = df.sort_values(by='col_3', ascending=False).head(10)
+
+print(top10[['col_1', 'col_2']])
+
+# plt.figure(figsize=(10,6))
+
+# sns.barplot(x='col_3', y='col_1', data=top10)
+
+# plt.title('Top 10 Products')
+
+# plt.show()
+
+
+#41
+biln = ['0', '50-200', '200-500', '500-1000', '>1000']
+comp = [0, 50, 200, 500, 1000, float('inf')]
+
+
+
+df["price_range"] = pd.cut(df["col_2"], bins=bins, labels=labels)
+
+
+pivot = pd.pivot_table(
+    df,
+    index="col_7",
+    columns="price_range",
+    values="col_2",
+    aggfunc="count",
+    fill_value=0
+)
+
+print(pivot)
+
+# plt.figure()
+
+# sns.heatmap(x='col_1', y='col_2', data=pivot)
+
+# plt.show()
+
+
+# 42
+# plt.figure(figsize=(10, 6))
+# sns.regplot(data=df, x='col_2', y='col_5', line_kws={'color':'red'})
+
+# plt.show()
+
+#43
+numeric_to = df.loc[:, 'col_2':'col_6']
+for col in numeric_to:
+    numeric_to[col] = pd.to_numeric(numeric_to[col], errors ='coerce')
+
+# sns.pairplot(numeric_to, hue='col_6', palette='viridis', diag_kind='kde')
+
+# plt.show()
+
+#44
+df['mean_p'] = df.groupby('col_7')['col_2'].transform('mean')
+df['std_p'] = df.groupby('col_7')['col_2'].transform('std')
+
+df['mean_s'] = df.groupby('col_7')['col_3'].transform('mean')
+df['std_s'] = df.groupby('col_7')['col_3'].transform('std')
+
+extreme_items = df[
+    (df['col_2'] > (df['mean_p'] + 3 * df['std_p'])) |
+    (df['col_3'] > (df['mean_s'] + 3 * df['std_s']))
+]
+extreme_items = extreme_items.drop(columns=['mean_p', 'std_p', 'mean_s', 'std_s'])
+
+print(extreme_items)
+
+
+# 45
+category_summary = df.groupby('col_7').agg({'col_2': 'mean', 'col_3': 'sum'}).reset_index()
+
+top_10_stock = df.sort_values(by='col_3', ascending=False).head(10)
+
+top_10_value = df.sort_values(by='total_value', ascending=False).head(10)
+
+file_name = 'catalog_final_report.xlsx'
+with pd.ExcelWriter(file_name, engine='openpyxl') as writer:
+    category_summary.to_excel(writer, sheet_name='Свод по категориям', index=False)
+    top_10_stock.to_excel(writer, sheet_name='Топ-10 запас', index=False)
+    top_10_value.to_excel(writer, sheet_name='Топ-10 стоимость', index=False)
+    df.to_excel(writer, sheet_name='Полный каталог', index=False)

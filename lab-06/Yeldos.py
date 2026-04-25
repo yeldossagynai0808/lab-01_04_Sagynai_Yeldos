@@ -33,7 +33,9 @@ df[numeric_col] = df[numeric_col].fillna(df[numeric_col].mean())
 print(df[numeric_col])
 
 
-# 3
+#3
+print('task3')
+
 df["total_price"] = df["col_2"] * df["col_3"]
 df["double_stock"] = df["col_5"] * 2
 df["log_price"] = np.log(df["col_2"])
@@ -41,121 +43,133 @@ df["log_price"] = np.log(df["col_2"])
 print(df[["total_price", "double_stock", "log_price"]].head())
 
 
-# 4
-electronics = df[df['col_7'] == 'Electronics']
-price_500 = df[df['col_2'] > 500]
 
-print(electronics.head(5), price_500.head(5))
+
+
+#4
+electronics_expensive = df[
+    (df["col_2"] > 500) & (df["col_7"] == "Electronics")
+]
+
+
+print(electronics_expensive.head())
+
 
 # 5
-grouped_df = df.groupby("col_7").agg(
-    mean_price=("col_2", "max"),
-    max_price=("col_2","mean"),
+grouped = df.groupby('col_7').agg(
+    mean_price=('col_3', 'mean'),
+    max_price=('col_2', 'max'),
     total_quantity=('col_3', 'sum')
-).reset_index()
+)
 
-print(grouped_df.head())
+
+print(grouped.head(5))
+
 
 
 # 6
-print("6")
-numeric = df.loc[:, 'col_2':'col_11']
-for col in numeric:
-    numeric[col] = pd.to_numeric(numeric[col], errors ='coerce')
-numeric_df = numeric.agg(["mean", "median", "std"]).T
+num = df.loc[:, 'col_2':'col_11']
 
-df_num = numeric_df.reset_index()
-df_num.columns = ['column', 'mean', 'median', 'std']
+for col in num:
+    num[col] = pd.to_numeric(num[col], errors ='coerce')
 
-print(df_num.head())
+numeric_df = num.agg(['mean', 'std', 'median']).T
 
-# 7
-price_mean = df['col_2'].mean()
-price_std = df['col_2'].std()
+ndf = numeric_df.reset_index()
+ndf.columns = ['column', 'mean', 'median', 'std']
 
-anomalies = df[df["col_2"] > price_mean + 3 * price_std]
+print(ndf.head())
 
-result = anomalies[["col_2"]]
+
+
+#7
+mean_price = df['col_2'].std()
+price = df['col_2'].mean()
+
+anomalies = df[df['col_2'] > price + 3 * mean_price]
+
+result = anomalies[['col_2']]
 print(result.head())
 
+
+
+
+
 #8
-
-
-arrange = df.loc[:, 'col_2':'col_11']
-to_number = arrange.apply(pd.to_numeric, errors='coerce')
-
+numeric = df.loc[:, 'col_2':'col_11']
+to_number = numeric.apply(pd.to_numeric, errors='coerce')
 corr = to_number.corr()
 
 
 print(corr)
 
 # 9
-# plt.figure()
+plt.figure()
 
-# plt.hist(df['col_2'], bins=50)
+plt.hist(df['col_2'], bins=50)
 
-# plt.title('Price Distribution')
-# plt.xlabel('Price')
-# plt.ylabel('Count')
+plt.title('Price Distribution')
+plt.xlabel('Price')
+plt.ylabel('Count')
 
-# plt.grid(True)
-# plt.show()
+plt.grid(True)
+plt.show()
 
 # 10
-# plt.figure()
+plt.figure()
 
-# sns.regplot(x=df['col_6'], y=df['col_5'])
-# plt.xlabel("Price")
-# plt.ylabel("count")
+sns.regplot(x=df['col_6'], y=df['col_5'])
+plt.xlabel("Price")
+plt.ylabel("count")
 
-# plt.grid()
+plt.grid()
 
-# plt.show()
+plt.show()
 
 # 11
 plt.figure()
 
-# sns.boxplot(x=df['col_7'], y=df['col_2'])
+sns.boxplot(x=df['col_7'], y=df['col_2'])
 
-# plt.title('Category price')
-# plt.xlabel('Category')
-# plt.xlabel('Price')
+plt.title('Category price')
+plt.xlabel('Category')
+plt.xlabel('Price')
 
-# plt.grid()
-# plt.show()
+plt.grid()
+plt.show()
 
 # 12
-# numeric = df.loc[:, 'col_2':'col_6']
+numeric = df.loc[:, 'col_2':'col_6']
 
-# for col in numeric:
-#     numeric[col] = pd.to_numeric(numeric[col], errors = 'coerce')
+for col in numeric:
+    numeric[col] = pd.to_numeric(numeric[col], errors = 'coerce')
 
-# numeric['category'] = df['col_7']
-# sns.pairplot(numeric, hue='category')
+numeric['category'] = df['col_7']
+sns.pairplot(numeric, hue='category')
 
-# plt.show()
+plt.show()
 
 
 #13
-# numeric = df.loc[:, 'col_2':'col_11']
+numeric = df.loc[:, 'col_2':'col_11']
 
-# for col in numeric:
-#     numeric[col] = pd.to_numeric(numeric[col], errors='coerce')
+for col in numeric:
+    numeric[col] = pd.to_numeric(numeric[col], errors='coerce')
 
-# corr = numeric.corr()
+corr = numeric.corr()
 
-# plt.figure()
+plt.figure()
 
-# sns.heatmap(corr, annot=True)
+sns.heatmap(corr, annot=True)
 
-# plt.title("Корреляционная матрица")
+plt.title("Корреляционная матрица")
 
-# plt.show()
+plt.show()
 
 #14
-# final_df = df[["col_2", "col_3", "total_price", "double_stock", "log_price"]]
+final_df = df[["col_2", "col_3", "total_price", "double_stock", "log_price"]]
 
-# final_df.to_excel("catalog_analysis.xlsx", index=False)
+final_df.to_excel("catalog_analysis.xlsx", index=False)
 
 # 15
 category_summary = df.groupby("col_7").agg(
@@ -167,7 +181,7 @@ category_summary = df.groupby("col_7").agg(
 
 print(category_summary.head())
 
-#16
+# #16
 price_category = df.groupby('col_7').agg(
     max_price=('col_2', 'max'),
     name_item=('col_1', 'first')
@@ -177,51 +191,51 @@ price_category = df.groupby('col_7').agg(
 print(price_category.head())
 
 
-#17
+# #17
 df["total_value"] = df["col_2"] * df["col_3"]
 
 print(df[["col_2", "col_3", "total_value"]].head(10))
 
 #18
-# bins = [0, 50, 200, 500, 1000, float('inf')]
-# labels = ['до 50', '50-200', '200-500', '500-1000', '1000+']
+bins = [0, 50, 200, 500, 1000, float('inf')]
+labels = ['до 50', '50-200', '200-500', '500-1000', '1000+']
 
-# df['price_range'] = pd.cut(df['col_2'], bins=bins, labels=labels)
-# count_df = df['price_range'].value_counts().sort_index()
+df['price_range'] = pd.cut(df['col_2'], bins=bins, labels=labels)
+count_df = df['price_range'].value_counts().sort_index()
 
-# count_df = count_df.reset_index()
-# count_df.columns = ["price_range", "count"]
-# plt.figure()
+count_df = count_df.reset_index()
+count_df.columns = ["price_range", "count"]
+plt.figure()
 
-# sns.barplot(x="price_range", y="count", data=count_df)
+sns.barplot(x="price_range", y="count", data=count_df)
 
-# plt.title("Распределение товаров по диапазонам цен")
-# plt.xlabel("Диапазон цен")
-# plt.ylabel("Количество товаров")
+plt.title("Распределение товаров по диапазонам цен")
+plt.xlabel("Диапазон цен")
+plt.ylabel("Количество товаров")
 
-# plt.grid()
-# plt.show()
+plt.grid()
+plt.show()
 
 #19
 df["stock_value"] = df["col_2"] * df["col_3"]
 grouped = df.groupby("col_7").agg(
     total_stock_value=("stock_value", "sum")
 ).reset_index()
-max_category = grouped.loc[grouped["total_stock_value"].idxmax()] # I MUST CHEK TOMORROW
+max_category = grouped.loc[grouped["total_stock_value"].idxmax()] 
 
 print(max_category)
-# plt.figure()
+plt.figure()
 
-# sns.barplot(x="col_7", y="total_stock_value", data=grouped)
+sns.barplot(x="col_7", y="total_stock_value", data=grouped)
 
-# plt.title("Суммарная стоимость товаров по категориям")
-# plt.xlabel("Категория")
-# plt.ylabel("Общая стоимость")
+plt.title("Суммарная стоимость товаров по категориям")
+plt.xlabel("Категория")
+plt.ylabel("Общая стоимость")
 
-# plt.xticks(rotation=45)
-# plt.grid()
+plt.xticks(rotation=45)
+plt.grid()
 
-# plt.show()
+plt.show()
 
 #20
 grouped = df.groupby('col_7').agg(
@@ -230,14 +244,14 @@ grouped = df.groupby('col_7').agg(
 ).reset_index()
 
 print(grouped.head())
-# plt.figure()
+plt.figure()
 
-# sns.scatterplot(x='mean_price', y='third_price', data=grouped)
-# plt.title('mean price and stock')
-# plt.xlabel('mean_price')
-# plt.ylabel('third_price')
+sns.scatterplot(x='mean_price', y='third_price', data=grouped)
+plt.title('mean price and stock')
+plt.xlabel('mean_price')
+plt.ylabel('third_price')
 
-# plt.show()
+plt.show()
 
 #21
 grouped = df.groupby('col_7').agg(
@@ -246,16 +260,16 @@ grouped = df.groupby('col_7').agg(
 
 
 print(grouped.head())
-# plt.figure()
+plt.figure()
 
-# sns.barplot(x='std', y = 'col_7', data=grouped)
+sns.barplot(x='std', y = 'col_7', data=grouped)
 
-# plt.title('Разброс цен по категорям')
-# plt.xlabel('standart std price')
-# plt.ylabel('category')
+plt.title('Разброс цен по категорям')
+plt.xlabel('standart std price')
+plt.ylabel('category')
 
-# plt.grid()
-# plt.show()
+plt.grid()
+plt.show()
 
 #22
 df_zero = df[df['col_3'].fillna(0) != 0]
@@ -274,27 +288,27 @@ grouped = grouped.rename(columns={"col_7": "category"})
 top5 = grouped.sort_values(by="count", ascending=False).head(5)
 
 print(top5)
-# plt.figure()
+plt.figure()
 
-# sns.barplot(x="count", y="category", data=top5)
+sns.barplot(x="count", y="category", data=top5)
 
-# plt.title("Топ-5 категорий по количеству товаров")
-# plt.xlabel("Количество товаров")
-# plt.ylabel("Категория")
+plt.title("Топ-5 категорий по количеству товаров")
+plt.xlabel("Количество товаров")
+plt.ylabel("Категория")
 
-# plt.grid()
-# plt.show()
+plt.grid()
+plt.show()
 
 
 #24
 sd_df = df.sort_values(by='col_3', ascending=False)
 print(sd_df.head(10))
 
-# plt.figure()
+plt.figure()
 
-# sns.barplot(x='col_3', y='col_1', data=sd_df)
+sns.barplot(x='col_3', y='col_1', data=sd_df)
 
-# plt.show()
+plt.show()
 
 #25
 
@@ -316,31 +330,31 @@ pivot = pd.pivot_table(
 print(pivot)
 
 
-# plt.figure()
+plt.figure()
 
-# sns.heatmap(pivot, annot=True)
+sns.heatmap(pivot, annot=True)
 
-# plt.title("Тепловая карта категорий и диапазонов цен")
-# plt.xlabel("Диапазон цены")
-# plt.ylabel("Категория")
+plt.title("Тепловая карта категорий и диапазонов цен")
+plt.xlabel("Диапазон цены")
+plt.ylabel("Категория")
 
-# plt.show()
+plt.show()
 
 # 37
 grouped = df.groupby('col_2').agg({'col_3':'std'}).reset_index()
 grouped.columns = ['category', 'std_price']
 
-# grouped = grouped.sort_values(by='std_price', ascending = False)
-# plt.figure(figsize=(10,6))
-# sns.barplot(data=grouped, y='category', x='std_price')
+grouped = grouped.sort_values(by='std_price', ascending = False)
+plt.figure(figsize=(10,6))
+sns.barplot(data=grouped, y='category', x='std_price')
 
-# plt.title('Price Variability by Category')
-# plt.xlabel('Standard Deviation of Price')
-# plt.ylabel('Category')
+plt.title('Price Variability by Category')
+plt.xlabel('Standard Deviation of Price')
+plt.ylabel('Category')
 
-# plt.show()
+plt.show()
 
-# print(grouped.head())
+print(grouped.head())
 
 #38
 df_zero = df[df['col_3'] == 0]
@@ -360,28 +374,28 @@ top_5 = grouped.sort_values(by='count', ascending=False).head(5)
 
 print(top_5)
 
-# plt.figure(figsize=(10,6))
+plt.figure(figsize=(10,6))
 
-# sns.barplot(x='col_7', y='count', data=top_5)
+sns.barplot(x='col_7', y='count', data=top_5)
 
-# plt.title('Top 5 Categories')
-# plt.xlabel('Category')
-# plt.ylabel('Count')
+plt.title('Top 5 Categories')
+plt.xlabel('Category')
+plt.ylabel('Count')
 
-# plt.show()
+plt.show()
 
 #40
 top10 = df.sort_values(by='col_3', ascending=False).head(10)
 
 print(top10[['col_1', 'col_2']])
 
-# plt.figure(figsize=(10,6))
+plt.figure(figsize=(10,6))
 
-# sns.barplot(x='col_3', y='col_1', data=top10)
+sns.barplot(x='col_3', y='col_1', data=top10)
 
-# plt.title('Top 10 Products')
+plt.title('Top 10 Products')
 
-# plt.show()
+plt.show()
 
 
 #41
@@ -404,27 +418,27 @@ pivot = pd.pivot_table(
 
 print(pivot)
 
-# plt.figure()
+plt.figure()
 
-# sns.heatmap(x='col_1', y='col_2', data=pivot)
+sns.heatmap(x='col_1', y='col_2', data=pivot)
 
-# plt.show()
+plt.show()
 
 
 # 42
-# plt.figure(figsize=(10, 6))
-# sns.regplot(data=df, x='col_2', y='col_5', line_kws={'color':'red'})
+plt.figure(figsize=(10, 6))
+sns.regplot(data=df, x='col_2', y='col_5', line_kws={'color':'red'})
 
-# plt.show()
+plt.show()
 
 #43
 numeric_to = df.loc[:, 'col_2':'col_6']
 for col in numeric_to:
     numeric_to[col] = pd.to_numeric(numeric_to[col], errors ='coerce')
 
-# sns.pairplot(numeric_to, hue='col_6', palette='viridis', diag_kind='kde')
+sns.pairplot(numeric_to, hue='col_6', palette='viridis', diag_kind='kde')
 
-# plt.show()
+plt.show()
 
 #44
 df['mean_p'] = df.groupby('col_7')['col_2'].transform('mean')
